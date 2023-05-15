@@ -4,6 +4,9 @@ from ultralytics import YOLO
 import supervision as sv
 import numpy as np
 import speech_recognition as sr
+import time
+import keyboard 
+import tkinter as tk
 
 
 name = 'siri'
@@ -29,8 +32,9 @@ def parse_arguments() -> argparse.Namespace:
 
 def main():
     args= parse_arguments()
-    frame_width, frame_height = args.webcam_resolution
-    
+    #frame_width, frame_height = args.webcam_resolution
+    frame_width = 540
+    frame_height =480
     cap = cv2.VideoCapture(0)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, frame_width)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, frame_height)
@@ -64,14 +68,20 @@ def main():
         frame = zone_annotador.annotate(scene=frame)
         
         cv2.imshow("yolov8", frame)
+        #cv2.moveWindow("yolov8", 0, 0)
         
         
         if(cv2.waitKey(30) == 27):
             break
+    
+        time.sleep(5)  
         
+        keyboard.press_and_release('esc')
     return labels
 
 if __name__ == "__main__":
     main()
+    print(main())
+    
 
  
