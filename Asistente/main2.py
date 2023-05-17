@@ -8,6 +8,7 @@ name = 'alexa'
 listener = sr.Recognizer()
 engine = pyttsx3.init()
 
+
 voices = engine.getProperty('voices')
 engine.setProperty('voice',voices[0].id)
 
@@ -43,8 +44,12 @@ def run():
     if 'cantidad' in rec:
         nivel = obtener_nivel_agua()
         print(nivel)
-        if nivel <= 20:
+        nivelstr = str(nivel)
+        talk('Señor, su jarra contiene:' + nivelstr + "porciento de agua")
+        if nivel <= 20 and nivel > 0:
             talk('Señor, su nivel de agua esta en el 20 porciento o por debajo de este, por favor llene la jarra nuevamente')
+        elif nivel == 0 and nivel <=0:
+            talk('Señor, su jarra se encuentra vacia')
         #talk('Buen día señor, no he logrado realizar las conexiones necesarias para ese procesamiento... consulte más tarde')    
     elif'contiene' in rec:
         talk('Buen día señor, su nevera contiene...')
